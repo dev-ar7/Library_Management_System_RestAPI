@@ -20,13 +20,13 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('librarian/', admin.site.urls),
     path('api/v1/',
             include([
+                path('', schema_view.with_ui('swagger', cache_timeout=0), name="swagger-schema"),
+                path('librarian/', admin.site.urls),
                 path('auth/', include('user.urls')),
                 path('token_auth/', token_obtain_sliding),
                 path('library/', include('books.urls')),
-                path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name="swagger-schema"),
             ])
     )
 ]
